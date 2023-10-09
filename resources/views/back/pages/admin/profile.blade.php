@@ -111,30 +111,7 @@
     </div>
     <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
         <div class="card-box height-100-p overflow-hidden">
-            <div class="profile-tab height-100-p">
-                <div class="tab height-100-p">
-                    <ul class="nav nav-tabs customtab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#personal_details" role="tab">Personal details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#update_password" role="tab">Update password</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="personal_details" role="tabpanel">
-                            <div class="pd-20">
-                                -----
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="update_password" role="tabpanel">
-                            <div class="pd-20 profile-task-wrap">
-                                -----
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @livewire('admin-profile-tabs')
         </div>
     </div>
 </div>
