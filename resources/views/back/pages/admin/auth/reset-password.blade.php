@@ -25,7 +25,7 @@
             </div>
         @endif
         <div class="input-group custom">
-            <input type="text" class="form-control form-control-lg" placeholder="New Password"
+            <input type="password" class="form-control form-control-lg" placeholder="New Password"
             name="new_password" value="{{ old('new_password') }}">
             <div class="input-group-append custom">
                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
@@ -35,7 +35,7 @@
             <div class="d-block text-danger mt-3 mb-3">{{$message}}</div>
         @enderror
         <div class="input-group custom">
-            <input type="text" class="form-control form-control-lg" placeholder="Confirm New Password"
+            <input type="password" class="form-control form-control-lg" placeholder="Confirm New Password"
             name="new_password_confirmation" value="{{old('new_password_confirmation')}}">
             <div class="input-group-append custom">
                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
