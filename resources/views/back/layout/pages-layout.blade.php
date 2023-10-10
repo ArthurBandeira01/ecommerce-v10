@@ -1,45 +1,18 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <!-- Basic Page Info -->
     <meta charset="utf-8" />
     <title>@yield('pageTitle')</title>
-
-    <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/back/vendors/images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/back/vendors/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/back/vendors/images/favicon-16x16.png" />
-
-    <!-- Mobile Specific Metas -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{URL::asset('favicon-32x32.png')}}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{URL::asset('favicon-32x32.png')}}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{URL::asset('favicon-16x16.png')}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
-    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/icon-font.min.css" />
-    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                "gtm.start": new Date().getTime(),
-                event: "gtm.js"
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != "dataLayer" ? "&l=" + l : "";
-            j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
-    </script>
-    <!-- End Google Tag Manager -->
-    {{--  <link rel="stylesheet" href="">  --}}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"  rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/core.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/icon-font.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/style.css')}}" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="{{URL::asset('extra-assets/ijaboCropTool/ijaboCropTool.min.css')}}">
     @livewireStyles
     @stack('stylesheets')
 </head>
@@ -275,9 +248,9 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
-            <a href="index.html">
-                <img src="/back/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-                <img src="/back/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+            <a href="{{route('admin.home')}}">
+                <img src="{{URL::asset('images/site/logo.jpg')}}" alt="Logo Alpha Castt" style="width: 50px; margin: 0 auto;" title="Lobo Alpha Castt" class="dark-logo" />
+                <img src="{{URL::asset('images/site/logo.jpg')}}" alt="Lobo Alpha Castt" style="width: 50px; margin: 0 auto;" title="Lobo Alpha Castt" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -289,7 +262,8 @@
 
                     @if (Route::is('admin.*'))
                         <li>
-                            <a href="{{route('admin.home')}}" class="dropdown-toggle no-arrow">
+                            <a href="{{route('admin.home')}}" class="dropdown-toggle no-arrow
+                                {{ Route::is('admin.home') ? 'active' : '' }}">
                                 <span class="micon fa fa-home"></span>
                                 <span class="mtext">Home</span>
                             </a>
@@ -306,9 +280,17 @@
                             <div class="sidebar-small-cap">Settings</div>
                         </li>
                         <li>
-                            <a href="{{route('admin.profile')}}" class="dropdown-toggle no-arrow">
+                            <a href="{{route('admin.profile')}}" class="dropdown-toggle no-arrow
+                            {{ Route::is('admin.profile') ? 'active' : '' }}">
                                 <span class="micon fa fa-user"></span>
                                 <span class="mtext">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.settings')}}" class="dropdown-toggle no-arrow
+                            {{ Route::is('admin.settings') ? 'active' : '' }}">
+                                <span class="micon icon-copy fi-widget"></span>
+                                <span class="mtext">Settings</span>
                             </a>
                         </li>
                     @else
@@ -356,12 +338,14 @@
             </div>
         </div>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{URL::asset('back/vendors/scripts/core.js')}}"></script>
-    <script src="{{URL::asset('back/vendors/scripts/script.min.js')}}"></script>
+    {{--  <script src="{{URL::asset('back/vendors/scripts/script.min.js')}}"></script>  --}}
     <script src="{{URL::asset('back/vendors/scripts/process.js')}}"></script>
     <script src="{{URL::asset('back/vendors/scripts/layout-settings.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{{URL::asset('extra-assets/ijaboCropTool/jquery-1.7.1.min.js')}}"></script>
+    <script src="{{URL::asset('extra-assets/ijaboCropTool/ijaboCropTool.min.js')}}"></script>
     <script>
         if (navigator.userAgent.indexOf("Firefox") != -1) {
             history.pushState(null, null, document.URL);
@@ -372,11 +356,18 @@
 
         window.addEventListener("showToastr", function(event){
             toastr.remove();
-            if(event.detail.type === 'info'){toastr.info(event.detail.message);}
-            else if(event.detail,type === 'success'){toastr.success(event.detail.message);}
-            else if(event.detail,type === 'error'){toastr.error(event.detail.message);}
-            else if(event.detail,type === 'warning'){toastr.warning(event.detail.message);}
-            else{ return false;}
+
+            if(event.detail[0].type === 'info'){
+                toastr.info(event.detail[0].message);
+            }else if(event.detail[0].type === 'success'){
+                toastr.success(event.detail[0].message);
+            } else if(event.detail[0].type === 'error'){
+                toastr.error(event.detail[0].message);
+            }else if(event.detail[0].type === 'warning'){
+                toastr.warning(event.detail[0].message);
+            }else{
+                return false;
+            }
         });
     </script>
     @livewireScripts

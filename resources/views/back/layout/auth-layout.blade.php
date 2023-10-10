@@ -4,45 +4,15 @@
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
 		<title>@yield('pageTitle')</title>
-
-		<!-- Site favicon -->
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="/back/vendors/images/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/back/vendors/images/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="/back/vendors/images/favicon-16x16.png"
-		/>
-
-		<!-- Mobile Specific Metas -->
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, maximum-scale=1"
-		/>
-
-		<!-- Google Font -->
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="/back/vendors/styles/icon-font.min.css"
-		/>
-		<link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
+		<link rel="apple-touch-icon" sizes="180x180" href="{{URL::asset('favicon-32x32.png')}}" />
+		<link rel="icon" type="image/png" sizes="32x32"	href="{{URL::asset('favicon-32x32.png')}}" />
+		<link rel="icon" type="image/png" sizes="16x16"	href="{{URL::asset('favicon-16x16.png')}}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"	/>
+		<link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/core.css')}}" />
+		<link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/icon-font.min.css')}}" />
+		<link rel="stylesheet" type="text/css" href="{{URL::asset('back/vendors/styles/style.css')}}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         @livewireStyles
         @stack('stylesheets')
 	</head>
@@ -52,8 +22,8 @@
 				class="container-fluid d-flex justify-content-between align-items-center"
 			>
 				<div class="brand-logo">
-					<a href="login.html">
-						<img src="/back/vendors/images/deskapp-logo.svg" alt="" />
+					<a href="{{route('admin.login')}}">
+						<img src="{{URL::asset('images/site/logo.jpg')}}" alt="Logo Alpha Castt" style="width: 50px; margin: 0 auto;" title="Lobo Alpha Castt" />
 					</a>
 				</div>
 				<div class="login-menu">
@@ -94,11 +64,17 @@
 
             window.addEventListener("showToastr", function(event){
                 toastr.remove();
-                if(event.detail.type === 'info'){toastr.info(event.detail.message);}
-                else if(event.detail,type === 'success'){toastr.success(event.detail.message);}
-                else if(event.detail,type === 'error'){toastr.error(event.detail.message);}
-                else if(event.detail,type === 'warning'){toastr.warning(event.detail.message);}
-                else{ return false;}
+                if(event.detail[0].type === 'info'){
+                    toastr.info(event.detail[0].message);
+                }else if(event.detail[0].type === 'success'){
+                    toastr.success(event.detail[0].message);
+                }else if(event.detail[0].type === 'error'){
+                    toastr.error(event.detail[0].message);
+                }else if(event.detail[0].type === 'warning'){
+                    toastr.warning(event.detail[0].message);
+                }else{
+                    return false;
+                }
             });
         </script>
         @livewireScripts

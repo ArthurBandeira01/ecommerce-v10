@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GeneralSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use constGuards;
 use constDefaults;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -195,5 +197,84 @@ class AdminController extends Controller
         }
 
         return view('back.pages.admin.profile', compact('admin'));
+    }
+
+    public function changeProfilePicture(Request $request)
+    {
+        $admin       = Admin::findOrFail(auth('admin')->id());
+        $path        = 'images/users/admins/';
+        $file        = $request->file('adminProfilePictureFile');
+        $old_picture = $admin->getAttributes()['picture'];
+        $file_path   = $path.$old_picture;
+        $filename    = 'ADMIN_IMG_'.rand(2, 1000).$admin->id.time().uniqid().'.jpg';
+
+        $upload = $file->move(public_path($path),$filename);
+
+        if($upload){
+            if($old_picture != null && File::exists(public_path($path.$old_picture))){
+                File::delete(public_path($path.$old_picture));
+            }
+
+            $admin->update(['picture' => $filename]);
+
+            return response()->json(['status' => 1, 'msg' => 'Your profile picture has been successfully updated.']);
+        }
+        else{
+            return response()->json(['status' => 0, 'msg' => 'Something went wrong']);
+        }
+    }
+
+    public function changeLogo(Request $request)
+    {
+        $path = 'images/site/';
+        $file = $request->file('site_logo');
+        $settings = new GeneralSetting();
+        $old_logo = $settings->first()->site_logo;
+        $file_path = $path.$old_logo;
+        $filename = 'LOGO_'.uniqid().'.'.$file->getClientOriginalExtension();
+
+        $upload = $file->move(public_path($path), $filename);
+
+        if($upload){
+            if($old_logo != null && File::exists(public_path($path.$old_logo))){
+                File::delete(public_path($path.$old_logo));
+            }
+
+            $settings = $settings->first();
+            $settings->site_logo = $filename;
+            $update = $settings->save();
+
+            return response()->json(['status' => 1, 'msg' => 'Site logo has been successfully updated.']);
+
+        }else{
+            return response()->json(['status' => 0, 'msg' => 'Something went wrong.']);
+        }
+    }
+
+    public function changeFavicon(Request $request)
+    {
+        $path = 'images/site/';
+        $file = $request->file('site_favicon');
+        $settings = new GeneralSetting();
+        $old_favicon = $settings->first()->site_favicon;
+        $file_path = $path.$old_favicon;
+        $filename = 'FAV_'.uniqid().'.'.$file->getClientOriginalExtension();
+
+        $upload = $file->move(public_path($path), $filename);
+
+        if($upload){
+            if($old_favicon != null && File::exists(public_path($path.$old_favicon))){
+                File::delete(public_path($path.$old_favicon));
+            }
+
+            $settings = $settings->first();
+            $settings->site_favicon = $filename;
+            $update = $settings->save();
+
+            return response()->json(['status' => 1, 'msg' => 'Site favicon has been successfully updated.']);
+
+        }else{
+            return response()->json(['status' => 0, 'msg' => 'Something went wrong.']);
+        }
     }
 }
